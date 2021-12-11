@@ -1,3 +1,15 @@
+p {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+}
+
 .App {
   height: 100vh;
   background-color: #0d1116;
@@ -15,10 +27,20 @@
 
 .header-container {
   padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  max-width: 40rem;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.mint-container {
+  margin: 2rem;
 }
 
 .header {
-  margin: 0;
+  margin: 0 auto;
   font-size: 50px;
   font-weight: bold;
 }
@@ -29,7 +51,7 @@
 }
 
 .gradient-text {
-  background: -webkit-linear-gradient(left, #60c657 30%, #35aee2 60%);
+  background: -webkit-linear-gradient(left, darkred 30%, red 60%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -38,7 +60,7 @@
 .cta-button {
   height: 45px;
   border: 0;
-  width: auto;
+  width: fit-content;
   padding-left: 40px;
   padding-right: 40px;
   border-radius: 5px;
@@ -46,23 +68,33 @@
   font-size: 16px;
   font-weight: bold;
   color: white;
+  margin-block: 2rem;
+}
+
+.nft-button {
+  margin-top: 5rem;
+  height: 45px;
+  padding-inline: 40px;
+  padding-block: 12px;
+  border: 2px solid red;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: red;
+  text-decoration: none;
 }
 
 .connect-wallet-button {
-  background: -webkit-linear-gradient(left, #60c657, #35aee2);
+  background: -webkit-linear-gradient(left, darkred, red);
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
 }
 
-.mint-button {
-  background: -webkit-linear-gradient(left, #a200d6, #ff6fdf);
-  background-size: 200% 200%;
-  animation: gradient-animation 4s ease infinite;
-  margin-right: 15px;
-}
-
-.opensea-button {
-  background-color: rgb(32, 129, 226);
+.collection-link {
+  color: red;
+  text-decoration: none;
+  border-bottom: 1px red solid;
 }
 
 .mint-count {
@@ -71,22 +103,14 @@
   font-weight: bold;
 }
 
-.footer-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 30px;
-}
-
-.twitter-logo {
-  width: 35px;
-  height: 35px;
-}
-
 .footer-text {
   color: white;
   font-size: 16px;
   font-weight: bold;
+}
+
+footer span {
+  color: red;
 }
 
 /* KeyFrames */
