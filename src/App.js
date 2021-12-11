@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './styles/App.css';
+import Loader from "./components/Loader";
 import { ethers } from "ethers";
 // contract abi
 import myEpicNft from './utils/MyEpicNFT.json';
@@ -17,7 +18,7 @@ const CHAIN_ID = "0x4";
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState('');
   const [totalNFTsMinted, setTotalNFTsMinted] = useState(null);
-  const [mining, setMining] = useState(true);
+  const [minting, setMinting] = useState(false);
   const [isNftMinted, setIsNftMinted] = useState(false);
   const [tokenId, setTokenId] = useState(null);
 
@@ -104,17 +105,19 @@ const App = () => {
 
   const updateNumberOfTotalNFTsMinted = async () => {
     const {ethereum} = window;
-    const provider = new ethers.providers.Web3Provider(ethereum);
-    const signer =  provider.getSigner();
-    const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, myEpicNft.abi, signer);
-    let numberOfTotalNFTsMinted = await connectedContract.getTotalNFTsMinted();
-    console.log("A total of %d NFTs have been minted!", numberOfTotalNFTsMinted.toNumber());
-    setTotalNFTsMinted(numberOfTotalNFTsMinted.toNumber());
-    return numberOfTotalNFTsMinted;
+    if(ethereum) {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer =  provider.getSigner();
+      const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, myEpicNft.abi, signer);
+      let numberOfTotalNFTsMinted = await connectedContract.getTotalNFTsMinted();
+      console.log("A total of %d NFTs have been minted!", numberOfTotalNFTsMinted.toNumber());
+      setTotalNFTsMinted(numberOfTotalNFTsMinted.toNumber());
+      return numberOfTotalNFTsMinted;
+    }
   }
 
   const askContractToMintNft = async () => {
-    setMining(true);
+    setMinting(true);
     setIsNftMinted(false);
     const { ethereum } = window;
     let currentChainId = await ethereum.request({method: "eth_chainId"});
@@ -129,7 +132,7 @@ const App = () => {
         console.log("Mining NFT ⛏️");
         await nftTxn.wait();
         console.log(`Mined NFT 💎 HUZZAH! See transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
-        setMining(false);
+        setMinting(false);
         setIsNftMinted(true);
         updateNumberOfTotalNFTsMinted();
       } else {
@@ -143,7 +146,7 @@ const App = () => {
 
   // Render Methods
   const renderNotConnectedContainer = () => (
-    <button onClick={connectWallet} className="cta-button connect-wallet-button">
+    <button onClick={connectWallet} className="cta-button primary-button">
       Connect to Wallet
     </button>
   );
@@ -153,7 +156,7 @@ const App = () => {
       <p className="sub-text">HUZZAH!</p>
       <p className="sub-text">Your NFT has been minted!</p>
       <button
-        className="cta-button connect-wallet-button"
+        className="cta-button nft-button"
         onClick={() => {
           window.open(`${RARIBLE_TOKEN_LINK}:${tokenId}`, '_blank');
         }}>View NFT</button>
@@ -170,19 +173,23 @@ const App = () => {
     <div className="App">
       <div className="container">
         <div className="header-container">
-          <p className="header gradient-text">My D&D NFT</p>
+          <div className="header">
+            <span>👹</span>
+            <p className="gradient-text">My D&D NFT</p>
+          </div>
           <p className="sub-text">
-            A collection of D&D 5E characters based on randomly generated race, class, and background.
+            A collection of Dungeons & Dragons characters based on randomly generated race, class, and background.
           </p>
           <a className="collection-link" href={RARIBLE_COLLECTION_LINK} target="_blank" rel="noreferrer">View Collection on Rarible</a>
           {currentAccount === "" ? renderNotConnectedContainer() : (
-            <div>
-              <h2>{totalNFTsMinted} / {TOTAL_SUPPLY} Minted</h2>
-              <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
+            <div className="mint-container">
+              <p>{totalNFTsMinted} / {TOTAL_SUPPLY} Minted</p>
+              <button onClick={askContractToMintNft} className="cta-button primary-button">
                 Mint NFT
               </button>
             </div>
           )}
+          {minting ? <Loader /> : null}
           {isNftMinted ? renderNftMintedContainer() : null}
         </div>
         <footer className="footer-container">

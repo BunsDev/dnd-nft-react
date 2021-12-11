@@ -15,6 +15,7 @@ footer {
   background-color: #0d1116;
   overflow: scroll;
   text-align: center;
+  padding-inline: 0.25rem;
 }
 
 .container {
@@ -36,13 +37,30 @@ footer {
 }
 
 .mint-container {
-  margin: 2rem;
+  margin: 1rem;
+}
+
+.mint-container p {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0;
 }
 
 .header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 auto;
   font-size: 50px;
   font-weight: bold;
+}
+
+.header span {
+  margin-right: 0.5rem;
+}
+
+.header p {
+  margin-block: 0;
 }
 
 .sub-text {
@@ -67,25 +85,17 @@ footer {
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  color: white;
-  margin-block: 2rem;
+  margin-block: 1rem;
 }
 
 .nft-button {
-  margin-top: 5rem;
-  height: 45px;
-  padding-inline: 40px;
-  padding-block: 12px;
   border: 2px solid red;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
   color: red;
-  text-decoration: none;
+  background-color: transparent;
 }
 
-.connect-wallet-button {
+.primary-button {
+  color: white;
   background: -webkit-linear-gradient(left, darkred, red);
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
@@ -95,6 +105,8 @@ footer {
   color: red;
   text-decoration: none;
   border-bottom: 1px red solid;
+  margin-block: 1rem;
+  font-size: 18px;
 }
 
 .mint-count {
@@ -145,5 +157,26 @@ footer span {
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+/* Loader */
+.ogre {
+  height: 18vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ogre {
+    animation: ogre-spin infinite 20s linear;
+  }
+}
+
+@keyframes ogre-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
