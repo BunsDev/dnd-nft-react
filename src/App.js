@@ -6,7 +6,7 @@ import { ethers } from "ethers";
 import myEpicNft from './utils/MyEpicNFT.json';
 
 // Constants
-const CONTRACT_ADDRESS = "0x6bc3b446bFf046b665150892e7f406570Bc00C30";
+const CONTRACT_ADDRESS = "0xE96f7d1DF111114951254d250CcB1019eA0351a4";
 const TWITTER_HANDLE = 'difool0x';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const RARIBLE_COLLECTION_LINK = `https://rinkeby.rarible.com/collection/${CONTRACT_ADDRESS}`;
